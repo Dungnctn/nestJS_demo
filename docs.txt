@@ -1,0 +1,14 @@
+/** yarn add -D prisma */
+=> install prisma package as Dev. support from code nestjs create database
+
+/** npx prisma init*/
+create schema empty => setup database
+file: schema.prisma
+
+/** npx prisma migrate dev */
+Apply schema to your database => input: tableCreation
+Update database when schema change
+
+
+/** npx prisma studio */
+table database localhost
