@@ -12,3 +12,17 @@ Update database when schema change
 
 /** npx prisma studio */
 table database localhost
+
+/** yarn add class-validator class-transformer argon2*/
+Validator
+argon2 =>convert a raw password hash string, one way (Khong the ma hoa nguoc)
+
+
+---- Docker ----
+docker compose up -d  :: run container with .yaml project
+docker compose up -d container_name -d
+docker exec -it dev-database bash ::truy cap vao ben trong
+psql -U "username" -W "database name"
+
+//Chay lai db phai chay cau lenh
+npx prisma migrate resets

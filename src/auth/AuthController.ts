@@ -1,15 +1,20 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Request } from 'express';
 import { AuthDTO } from './dto';
+import * as argon from 'argon2';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post('login')
+  @Post('register')
   async login(@Body() body: AuthDTO) {
-    console.log(body);
-    return this.authService.doSomething();
+    return this.authService.register(body);
+  }
+
+  @Get()
+  async getAll() {
+    return this.authService.getAllUser();
   }
 }

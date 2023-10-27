@@ -5,17 +5,10 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [
-    // ConfigModule.forRoot({
-    //   envFilePath: '.env',
-    //   isGlobal: true,
-    // }),
-    // MongooseModule.forRoot(process.env.DB_URL),
-    AuthModule,
-    PrismaModule,
-  ],
+  imports: [AuthModule, PrismaModule],
   controllers: [AppController],
   providers: [AppService],
 })
