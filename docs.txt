@@ -26,3 +26,14 @@ psql -U "username" -W "database name"
 
 //Chay lai db phai chay cau lenh
 npx prisma migrate resets
+
+//Export DB docker
+docker exec -t your-postgres-container pg_dump -U your-username your-database > path/your/dump.sql
+docker exec -t test-database pg_dump -U postgres dbtest > e:/dump.sql
+
+
+//Khi update schema
+npx prisma migrate dev
+=> migrate lai de update tren database
+=> Enter a name for the new migration: ten migrate
+=> npx prisma studio

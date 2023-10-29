@@ -12,11 +12,14 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
-  email     String
+  email     String   @unique
   password  String
-  name      String
+  name      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  notes     Note[]
+
+  @@map("users") //users id "table" in Postgresql
 }
 
 model Product {
@@ -28,4 +31,19 @@ model Product {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+
+  @@map("products")
+}
+
+model Note {
+  id        Int      @id @default(autoincrement())
+  title     String
+  desc      String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id])
+  userId    Int //like "foreign key "
+
+  @@map("notes")
 }
