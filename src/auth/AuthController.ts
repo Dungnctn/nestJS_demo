@@ -9,8 +9,13 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('register')
-  async login(@Body() body: AuthDTO) {
+  async register(@Body() body: AuthDTO) {
     return this.authService.register(body);
+  }
+
+  @Post('login')
+  async login(@Body() body: AuthDTO) {
+    return this.authService.login(body);
   }
 
   @Get()
