@@ -3,12 +3,14 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthDTO } from './dto';
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable({}) //This is "Dependency Injection"
 export class AuthService {
   constructor(
     private prismaService: PrismaService,
     private jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
 
   async register(authDTO: AuthDTO) {
@@ -42,7 +44,7 @@ export class AuthService {
       throw new ForbiddenException('Email or Password incorrect');
     }
     delete user.password;
-    return user;
+    return await this.signJwt(user.id, user.email);
   }
 
   async getAllUser() {
@@ -56,5 +58,23 @@ export class AuthService {
     });
 
     return result;
+  }
+
+  async signJwt(
+    userId: number,
+    email: string,
+  ): Promise<{ accessToken: string }> {
+    const payload = {
+      id: userId,
+      email,
+    };
+    const token = await this.jwtService.signAsync(payload, {
+      expiresIn: '10m',
+      secret: this.configService.get('JWT_SECRET'),
+    });
+
+    return {
+      accessToken: token,
+    };
   }
 }
