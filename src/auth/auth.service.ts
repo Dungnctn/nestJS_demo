@@ -44,7 +44,7 @@ export class AuthService {
       throw new ForbiddenException('Email or Password incorrect');
     }
     delete user.password;
-    return await this.signJwt(user.id, user.email);
+    return await this.signJwt(user.id, user.email, user.name);
   }
 
   async getAllUser() {
@@ -63,10 +63,12 @@ export class AuthService {
   async signJwt(
     userId: number,
     email: string,
+    name: string,
   ): Promise<{ accessToken: string }> {
     const payload = {
       id: userId,
       email,
+      name,
     };
     const token = await this.jwtService.signAsync(payload, {
       expiresIn: '10m',
